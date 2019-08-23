@@ -1,24 +1,21 @@
-import React from "react";
-import { connect } from "react-redux";
-import cx from "classnames";
-import { toggleTodo } from "../redux/actions";
+import React from 'react'
+import PropTypes from 'prop-types'
 
-const Todo = ({ todo, toggleTodo }) => (
-  <li className="todo-item" onClick={() => toggleTodo(todo.id)}>
-    {todo && todo.completed ? "👌" : "👋"}{" "}
-    <span
-      className={cx(
-        "todo-item__text",
-        todo && todo.completed && "todo-item__text--completed"
-      )}
-    >
-      {todo.content}
-    </span>
+const Todo = ({ onClick, completed, text }) => (
+  <li
+    onClick={onClick}
+    style={{
+      textDecoration: completed ? 'line-through' : 'none'
+    }}
+  >
+    {text}
   </li>
-);
+)
 
-// export default Todo;
-export default connect(
-  null,
-  { toggleTodo }
-)(Todo);
+Todo.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  completed: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired
+}
+
+export default Todo
